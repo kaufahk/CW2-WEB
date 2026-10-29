@@ -1,0 +1,457 @@
+D<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerLink | Home</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f5f8;
+            color: #202b3c;
+        }
+
+        .box0 {
+            width: 100%;
+            min-height: 100vh;
+            background-color: white;
+            margin: auto;
+        }
+
+        .box1 {
+            width: 100%;
+            min-height: 35px;
+            background-color: #102844;
+            color: white;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box1 table { width: 90%; }
+        .box1 td { padding: 8px; text-align: center; }
+        .box1 a { color: white; text-decoration: none; }
+
+        .box2 {
+            width: 100%;
+            min-height: 70px;
+            background-color: white;
+            color: #17365d;
+            float: left;
+            border-bottom: 1px solid #dbe2ea;
+        }
+
+        .box2 table { width: 95%; margin: auto; }
+        .box2 td { padding: 15px 8px; text-align: center; }
+        .box2 a { color: #17365d; font-weight: bold; text-decoration: none; }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #17365d;
+            white-space: nowrap;
+        }
+
+        .brand span { color: #1673f9; }
+        .motto {
+            display: block;
+            margin-top: 3px;
+            font-size: 11px;
+            font-weight: normal;
+            color: #61748c;
+        }
+
+        .box3 {
+            width: 100%;
+            min-height: 500px;
+            background-color: #f3f5f8;
+            float: left;
+            padding: 25px;
+        }
+
+        .carousel {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #102844;
+        }
+
+        .carousel input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .slides { position: relative; min-height: 460px; }
+
+        .slide {
+            display: none;
+            min-height: 460px;
+            width: 100%;
+            padding: 55px 8%;
+            background-size: cover;
+            background-position: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #slide1:checked ~ .slides .slide1,
+        #slide2:checked ~ .slides .slide2,
+        #slide3:checked ~ .slides .slide3,
+        #slide4:checked ~ .slides .slide4 {
+            display: flex;
+        }
+
+        .slide1 {
+            background-image: linear-gradient(90deg, rgba(8,28,52,.91), rgba(8,28,52,.20)),
+            url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85");
+        }
+
+        .slide2 {
+            background-image: linear-gradient(90deg, rgba(8,28,52,.91), rgba(8,28,52,.20)),
+            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85");
+        }
+
+        .slide3 {
+            background-image: linear-gradient(90deg, rgba(8,28,52,.91), rgba(8,28,52,.20)),
+            url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85");
+        }
+
+        .slide4 {
+            background-image: linear-gradient(90deg, rgba(8,28,52,.91), rgba(8,28,52,.20)),
+            url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85");
+        }
+
+        .slide-content {
+            max-width: 650px;
+            color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: rgba(229,239,251,.18);
+            color: white;
+            padding: 8px 13px;
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 18px;
+            font-size: 13px;
+        }
+
+        .slide-content h1 {
+            font-size: clamp(30px, 4vw, 54px);
+            line-height: 1.12;
+            margin: 20px 0 15px;
+            color: white;
+        }
+
+        .slide-content h1 span { color: #3c8dff; }
+
+        .slide-content p {
+            max-width: 590px;
+            font-size: 18px;
+            line-height: 1.55;
+            color: #f0f5fc;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #1d67b1;
+            color: white;
+            padding: 11px 17px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 8px;
+        }
+
+        .button-light {
+            display: inline-block;
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 8px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 45%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(16,40,68,.75);
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .prev { left: 18px; }
+        .next { right: 18px; }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: white;
+        }
+
+        .dots label {
+            width: 12px;
+            height: 12px;
+            display: block;
+            border-radius: 50%;
+            background-color: #b8c2cf;
+            cursor: pointer;
+        }
+
+        #slide1:checked ~ .dots label[for="slide1"],
+        #slide2:checked ~ .dots label[for="slide2"],
+        #slide3:checked ~ .dots label[for="slide3"],
+        #slide4:checked ~ .dots label[for="slide4"] {
+            background-color: #1d67b1;
+        }
+
+        .box31, .box32, .box33, .box34 {
+            width: 23%;
+            min-height: 280px;
+            float: left;
+            margin: 0 1%;
+            background-color: white;
+            border: 1px solid #e0e6ee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .box311, .box321, .box331, .box341 {
+            width: 100%;
+            min-height: 80px;
+            padding: 18px;
+            background-color: #e5effb;
+            color: #17365d;
+        }
+
+        .box312, .box322, .box332, .box342 {
+            padding: 18px;
+            background-color: white;
+            min-height: 185px;
+        }
+
+        .clear { clear: both; }
+
+        .box4 {
+            width: 100%;
+            min-height: 80px;
+            background-color: #102844;
+            color: white;
+            float: left;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="box0">
+    <div class="box1">
+        
+    <div class="top-nav">
+
+        <table>
+
+            <tr>
+
+                <td>
+        <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="box1">
+     <div class="box2">
+        <div class="navbar navbar-inverse" style="position: static;">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="jobs.html">Job Seekers</a>
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+              <div class="nav-collapse collapse navbar-inverse-collapse">
+                <ul class="nav">
+                  <li class="active"><a href="internships.html">Students</a></li>
+                  <li><a href="companies.html">Employers</a></li>
+                  <li class="dropdown"> <a href="dashboard.html" class="dropdown-toggle" data-toggle="dropdown">Dashboard <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="index2.html"></a></li>
+                      <li><a href="dashboard.html">Dashboard</a></li>
+                      <li><a href="index.html">Home</a></li>
+                      <li class="divider"></li>
+                      <li class="nav-header">Nav header</li>
+                      <li><a href="pricing.html">Plans</a></li>
+                      <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav pull-left">
+                  <li class="divider-vertical"></li>
+                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opportunities <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="index2.html">Images</a></li>
+                      <li><a href="index2.html">News</a></li>
+                      <li><a href="index2.html">Activities</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Separated link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <form class="navbar-search pull-right" action="">
+         <input type="text" class="search-query span2" placeholder="Search" />
+                </form>
+        </div>
+    </div>
+
+</div>
+     </div>
+                </td>
+            </tr>
+
+        </table>
+    <div class="box2">
+        <table>
+            <tr>
+                <td><a class="brand" href="index.html">▣ Career<span>Link</span><small class="motto">Connecting Talent to Opportunity</small></a></td>
+                <td><a href="index.html">Home</a></td>
+                <td><a href="jobs.html">Jobs</a></td>
+                <td><a href="internships.html">Internships</a></td>
+                <td><a href="companies.html">Companies</a></td>
+                <td><a href="pricing.html">Plans</a></td>
+                <td><a href="auth.html">Sign in</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box3">
+        
+        <div class="carousel" class="carousel slide homCar">
+            <input type="radio" name="homeSlides" id="slide1" checked>
+            <input type="radio" name="homeSlides" id="slide2">
+            <input type="radio" name="homeSlides" id="slide3">
+            <input type="radio" name="homeSlides" id="slide4">
+
+            <div class="slides">
+                <section class="slide slide1">
+                    <div class="slide-content">
+                        <span class="tag">FEATURED OPPORTUNITY</span>
+                        <h1>Your Next Opportunity<br>Is <span>Just a Click Away</span></h1>
+                        <p>Discover the latest jobs and internships from top companies. Build your skills, gain experience and take the next step in your career journey.</p>
+                        <a class="button" href="jobs.html">Explore Jobs →</a>
+                        <a class="button-light" href="internships.html">Find Internships</a>
+                    </div>
+                    <label class="arrow prev" for="slide4" aria-label="Previous slide">‹</label>
+                    <label class="arrow next" for="slide2" aria-label="Next slide">›</label>
+                </section>
+
+                <section class="slide slide2">
+                    <div class="slide-content">
+                        <span class="tag">LEARN BY DOING</span>
+                        <h1>Start Small.<br><span>Dream Bigger.</span></h1>
+                        <p>Find internships that help you gain real-world experience, build confidence and develop career-ready skills.</p>
+                        <a class="button" href="internships.html">Find Internships →</a>
+                        <a class="button-light" href="jobs.html">Explore Jobs</a>
+                    </div>
+                    <label class="arrow prev" for="slide1" aria-label="Previous slide">‹</label>
+                    <label class="arrow next" for="slide3" aria-label="Next slide">›</label>
+                </section>
+
+                <section class="slide slide3">
+                    <div class="slide-content">
+                        <span class="tag">MEET GREAT EMPLOYERS</span>
+                        <h1>Find Your People.<br><span>Find Your Place.</span></h1>
+                        <p>Explore companies, learn about their work and discover teams that match your interests and goals.</p>
+                        <a class="button" href="companies.html">Explore Companies →</a>
+                        <a class="button-light" href="jobs.html">See Openings</a>
+                    </div>
+                    <label class="arrow prev" for="slide2" aria-label="Previous slide">‹</label>
+                    <label class="arrow next" for="slide4" aria-label="Next slide">›</label>
+                </section>
+
+                <section class="slide slide4">
+                    <div class="slide-content">
+                        <span class="tag">BUILD YOUR FUTURE</span>
+                        <h1>Your Talent.<br><span>Your Opportunity.</span></h1>
+                        <p>Take charge of your career journey with opportunities and resources designed to help you grow.</p>
+                        <a class="button" href="dashboard.html">Get Started →</a>
+                        <a class="button-light" href="pricing.html">View Plans</a>
+                    </div>
+                    <label class="arrow prev" for="slide3" aria-label="Previous slide">‹</label>
+                    <label class="arrow next" for="slide1" aria-label="Next slide">›</label>
+                </section>
+            </div>
+
+            <div class="dots">
+                <label for="slide1" aria-label="Show slide 1"></label>
+                <label for="slide2" aria-label="Show slide 2"></label>
+                <label for="slide3" aria-label="Show slide 3"></label>
+                <label for="slide4" aria-label="Show slide 4"></label>
+            </div>
+        </div>
+
+        <div class="box31">
+            <div class="box311"><h2>Find a Job</h2></div>
+            <div class="box312"><p>Browse roles across technology, business, design, and more.</p><a class="button" href="jobs.html">Browse Jobs</a></div>
+        </div>
+        <div class="box32">
+            <div class="box321"><h2>Start an Internship</h2></div>
+            <div class="box322"><p>Build practical experience and develop career-ready skills.</p><a class="button" href="internships.html">Browse Internships</a></div>
+        </div>
+        <div class="box33">
+            <div class="box331"><h2>Discover Companies</h2></div>
+            <div class="box332"><p>Learn about organisations and find teams where you can grow.</p><a class="button" href="companies.html">Explore Companies</a></div>
+        </div>
+        <div class="box34">
+            <div class="box341"><h2>Build Your Future</h2></div>
+            <div class="box342"><p>Take the next step with resources to support your career journey.</p><a class="button" href="dashboard.html">Get Started</a></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="box4">
+        <strong>▣ CareerLink</strong>
+        <p>Connecting Talent to Opportunity</p>
+        <p>© 2026 CareerLink</p>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
+
+<script>
+    $('#toggle').click(function () {
+        if ($('#blacktheme').length) {
+            $('#blacktheme').remove();
+            $('.navbar-fixed-top').removeClass('navbar-inverse');
+        }
+        else {
+            $('head').append('<link id="blacktheme" rel="stylesheet" href="css/darkbootstrap.css" />');
+            $('.navbar-fixed-top').addClass('navbar-inverse');
+        }
+    });
+</script>
+
+        <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+   
+</body>
+</html>
